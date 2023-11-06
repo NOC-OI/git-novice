@@ -8,6 +8,7 @@ exercises: 0
 
 - Explain what conflicts are and when they can occur.
 - Resolve conflicts resulting from a merge.
+- Understand how to create a pull request.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -24,43 +25,40 @@ different changes to each copy.  Version control helps us manage these
 [conflicts](../learners/reference.md#conflict) by giving us tools to
 [resolve](../learners/reference.md#resolve) overlapping changes.
 
-To see how we can resolve conflicts, we must first create one.  The file
-`mars.txt` currently looks like this in both partners' copies of our `planets`
-repository:
+We already created a merge conflict during the exercise in the last section. 
+Just in case we want to create another we can do the following. Do the following on a collaborators copy. 
+This could be a second clone of the repository, another person's computer or via the Github web interface.
 
 ```bash
-$ cat mars.txt
+$ cat places.csv
 ```
 
 ```output
-Cold and dry, but everything is my favorite color
-The two moons may be a problem for Wolfman
-But the Mummy will appreciate the lack of humidity
+name,symbol,creator,comments,lon,lat
+Sophie's,cafe,Colin Sauze,good cooked breakfasts,-4.08225,52.415250
 ```
 
-Let's add a line to the collaborator's copy only:
+Let's change a line in the collaborator's copy only:
 
 ```bash
-$ nano mars.txt
-$ cat mars.txt
+$ nano places.csv
+$ cat places.csv
 ```
 
 ```output
-Cold and dry, but everything is my favorite color
-The two moons may be a problem for Wolfman
-But the Mummy will appreciate the lack of humidity
-This line added to Wolfman's copy
+name,symbol,creator,comments,lon,lat
+Sophie's,cafe,Colin Sauze,good cooked breakfasts and burgers,-4.08225,52.415250
 ```
 
-and then push the change to GitHub:
+then commit the change and push it to Github:
 
 ```bash
-$ git add mars.txt
-$ git commit -m "Add a line in our home copy"
+$ git add places.csv
+$ git commit -m "Add a mention of burgers"
 ```
 
 ```output
-[main 5ae9631] Add a line in our home copy
+[main 5ae9631] Add a mention of burgers
  1 file changed, 1 insertion(+)
 ```
 
@@ -76,7 +74,7 @@ Compressing objects: 100% (3/3), done.
 Writing objects: 100% (3/3), 331 bytes | 331.00 KiB/s, done.
 Total 3 (delta 2), reused 0 (delta 0)
 remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
-To https://github.com/vlad/planets.git
+To git@github.com:NOC-OI/favourite-places.git
    29aba7c..dabb4c8  main -> main
 ```
 
@@ -85,26 +83,24 @@ make a different change to their copy
 *without* updating from GitHub:
 
 ```bash
-$ nano mars.txt
-$ cat mars.txt
+$ nano places.csv
+$ cat places.csv
 ```
 
 ```output
-Cold and dry, but everything is my favorite color
-The two moons may be a problem for Wolfman
-But the Mummy will appreciate the lack of humidity
-We added a different line in the other copy
+name,symbol,creator,comments,lon,lat
+Sophie's,cafe,Colin Sauze,good cooked breakfasts and milkshakes,-4.08225,52.415250
 ```
 
 We can commit the change locally:
 
 ```bash
-$ git add mars.txt
-$ git commit -m "Add a line in my copy"
+$ git add place.csv
+$ git commit -m "Mention how good the milkshakes are"
 ```
 
 ```output
-[main 07ebc69] Add a line in my copy
+[main 07ebc69] Mention how good the milkshakes are
  1 file changed, 1 insertion(+)
 ```
 
@@ -115,9 +111,9 @@ $ git push origin main
 ```
 
 ```output
-To https://github.com/vlad/planets.git
+To git@github.com:NOC-OI/favourite-places.git
  ! [rejected]        main -> main (fetch first)
-error: failed to push some refs to 'https://github.com/vlad/planets.git'
+error: failed to push some refs to 'git@github.com:NOC-OI/favourite-places.git'
 hint: Updates were rejected because the remote contains work that you do
 hint: not have locally. This is usually caused by another repository pushing
 hint: to the same ref. You may want to first integrate the remote changes
@@ -143,11 +139,11 @@ remote: Counting objects: 100% (5/5), done.
 remote: Compressing objects: 100% (1/1), done.
 remote: Total 3 (delta 2), reused 3 (delta 2), pack-reused 0
 Unpacking objects: 100% (3/3), done.
-From https://github.com/vlad/planets
+From git@github.com:NOC-OI/favourite-places.git
  * branch            main     -> FETCH_HEAD
     29aba7c..dabb4c8  main     -> origin/main
-Auto-merging mars.txt
-CONFLICT (content): Merge conflict in mars.txt
+Auto-merging places.csv
+CONFLICT (content): Merge conflict in places.csv
 Automatic merge failed; fix conflicts and then commit the result.
 ```
 
@@ -159,17 +155,14 @@ stop us from trampling on our previous work. The conflict is marked in
 in the affected file:
 
 ```bash
-$ cat mars.txt
+$ cat places.csv
 ```
 
 ```output
-Cold and dry, but everything is my favorite color
-The two moons may be a problem for Wolfman
-But the Mummy will appreciate the lack of humidity
 <<<<<<< HEAD
-We added a different line in the other copy
+Sophie's,cafe,Colin Sauze,good cooked breakfasts and milkshakes,-4.08225,52.415250
 =======
-This line added to Wolfman's copy
+Sophie's,cafe,Colin Sauze,good cooked breakfasts and burgers,-4.08225,52.415250
 >>>>>>> dabb4c8c450e8475aee9b14b4383acc99f42af1d
 ```
 
@@ -187,22 +180,19 @@ or get rid of the change entirely.
 Let's replace both so that the file looks like this:
 
 ```bash
-$ cat mars.txt
+$ cat places.csv
 ```
 
 ```output
-Cold and dry, but everything is my favorite color
-The two moons may be a problem for Wolfman
-But the Mummy will appreciate the lack of humidity
-We removed the conflict on this line
+Sophie's,cafe,Colin Sauze,good cooked breakfasts, milkshakes and burgers,-4.08225,52.415250
 ```
 
 To finish merging,
-we add `mars.txt` to the changes being made by the merge
+we add `places.csv` to the changes being made by the merge
 and then commit:
 
 ```bash
-$ git add mars.txt
+$ git add places.csv
 $ git status
 ```
 
@@ -213,7 +203,7 @@ All conflicts fixed but you are still merging.
 
 Changes to be committed:
 
-	modified:   mars.txt
+	modified:   places.csv
 
 ```
 
@@ -239,7 +229,7 @@ Compressing objects: 100% (6/6), done.
 Writing objects: 100% (6/6), 645 bytes | 645.00 KiB/s, done.
 Total 6 (delta 4), reused 0 (delta 0)
 remote: Resolving deltas: 100% (4/4), completed with 2 local objects.
-To https://github.com/vlad/planets.git
+To git@github.com:NOC-OI/favourite-places.git
    dabb4c8..2abf2b1  main -> main
 ```
 
@@ -257,26 +247,23 @@ remote: Counting objects: 100% (10/10), done.
 remote: Compressing objects: 100% (2/2), done.
 remote: Total 6 (delta 4), reused 6 (delta 4), pack-reused 0
 Unpacking objects: 100% (6/6), done.
-From https://github.com/vlad/planets
+From git@github.com:NOC-OI/favourite-places.git
  * branch            main     -> FETCH_HEAD
     dabb4c8..2abf2b1  main     -> origin/main
 Updating dabb4c8..2abf2b1
 Fast-forward
- mars.txt | 2 +-
+ places.csv | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 ```
 
 We get the merged file:
 
 ```bash
-$ cat mars.txt
+$ cat places.csv
 ```
 
 ```output
-Cold and dry, but everything is my favorite color
-The two moons may be a problem for Wolfman
-But the Mummy will appreciate the lack of humidity
-We removed the conflict on this line
+Sophie's,cafe,Colin Sauze,good cooked breakfasts, milkshakes and burgers,-4.08225,52.415250
 ```
 
 We don't need to merge again because Git knows someone has already done that.
@@ -306,13 +293,13 @@ Conflicts can also be minimized with project management strategies:
 
 ## Solving Conflicts that You Create
 
-Clone the repository created by your instructor.
-Add a new file to it,
-and modify an existing file (your instructor will tell you which one).
-When asked by your instructor,
-pull her changes from the repository to create a conflict,
-then resolve it.
 
+In the group exercise in the last section you probably created a merge conflict.
+If you didn't, make another change to your copy of places.csv to cause one. 
+Rembmer to add, commit and push the change, the push stage should give a merge error. 
+Now attempt to resolve the conflict, you might have to do this multiple times to deal with everyone's changes.
+Ask the instructor and helper(s) to help resolve this. It can help if each person takes it in turn to resolve the conflict.
+Expect total chaos!!
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -368,9 +355,9 @@ $ git push origin main
 ```
 
 ```output
-To https://github.com/vlad/planets.git
+To git@github.com:vlad/planets.git
  ! [rejected]        main -> main (fetch first)
-error: failed to push some refs to 'https://github.com/vlad/planets.git'
+error: failed to push some refs to 'git@github.com:vlad/planets.git'
 hint: Updates were rejected because the remote contains work that you do
 hint: not have locally. This is usually caused by another repository pushing
 hint: to the same ref. You may want to first integrate the remote changes
@@ -393,7 +380,7 @@ remote: Counting objects: 3, done.
 remote: Compressing objects: 100% (3/3), done.
 remote: Total 3 (delta 0), reused 0 (delta 0)
 Unpacking objects: 100% (3/3), done.
-From https://github.com/vlad/planets.git
+From git@github.com:NOC-OI/favourite-places.git
  * branch            main     -> FETCH_HEAD
    6a67967..439dc8c  main     -> origin/main
 warning: Cannot merge binary files: mars.jpg (HEAD vs. 439dc8c08869c342438f6dc4a2b615b05b93c76e)
@@ -402,7 +389,7 @@ CONFLICT (add/add): Merge conflict in mars.jpg
 Automatic merge failed; fix conflicts and then commit the result.
 ```
 
-The conflict message here is mostly the same as it was for `mars.txt`, but
+The conflict message here is mostly the same as it was for `places.csv`, but
 there is one key additional line:
 
 ```output
@@ -480,56 +467,59 @@ no longer exists.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## A Typical Work Session
+## Pull Requests
 
-You sit down at your computer to work on a shared project that is tracked in a
-remote Git repository. During your work session, you take the following
-actions, but not in this order:
+As you have seen, multiple people working on the same repository can cause a lot of problems. Github provides another way to collaborate called pull requests. In these each person makes their own copy of the repository on Github, this is known as a fork. Instead of working in the same repository as everyone else, each person works on their own fork. When they are ready to send the changes back to the main repository they create a pull request (literally asking the owner of the repository to do a git pull from theirs). Github wraps this in a nice interface, which allows you to write a comment about what you changed, for the owner to review your changes (and possibly request you make more before they accept it) and for them to finally accept or reject them. Once they are accepted the changes from your fork are merged into the upstream repository. If there are any conflicts then it will be up to the owner of the upstream repository to resolve them.
 
-- *Make changes* by appending the number `100` to a text file `numbers.txt`
-- *Update remote* repository to match the local repository
-- *Celebrate* your success with some fancy beverage(s)
-- *Update local* repository to match the remote repository
-- *Stage changes* to be committed
-- *Commit changes* to the local repository
+## Pull Requesting Changes
+* Create a fork of the favourite-places repository by visiting https://github.com/NOC-OI/favourite-places and clicking on the fork link near the top right hand corner.
+* Create an additional change to the places.csv file in the repository.
+* Github should now tell you that your fork is "1 commit ahead" of the upstream repository and offer a "Contribute" button to start the pull request.
+* Click this and choose "Open Pull Request".
+* The next screen will highlight the differences between your version and the upstream one. Go ahead and click "Create pull request".
+* The repository owner should now get an alert about your pull request and can choose whether to merge it or not.
 
-In what order should you perform these actions to minimize the chances of
-conflicts? Put the commands above in order in the *action* column of the table
-below. When you have the order right, see if you can write the corresponding
-commands in the *command* column. A few steps are populated to get you
-started.
-
-| order | action . . . . . . . . . . | command . . . . . . . . . .                   | 
-| ----- | -------------------------- | --------------------------------------------- |
-| 1     |                            |                                               | 
-| 2     |                            | `echo 100 >> numbers.txt`                                              | 
-| 3     |                            |                                               | 
-| 4     |                            |                                               | 
-| 5     |                            |                                               | 
-| 6     | Celebrate!                 | `AFK`                                              | 
+When do you think it is best to use pull requests and when is it best to allow multiple people to write to the same repository?
 
 :::::::::::::::  solution
 
 ## Solution
-
-| order | action . . . . . .         | command . . . . . . . . . . . . . . . . . . . | 
-| ----- | -------------------------- | --------------------------------------------- |
-| 1     | Update local               | `git pull origin main`                                              | 
-| 2     | Make changes               | `echo 100 >> numbers.txt`                                              | 
-| 3     | Stage changes              | `git add numbers.txt`                                              | 
-| 4     | Commit changes             | `git commit -m "Add 100 to numbers.txt"`                                              | 
-| 5     | Update remote              | `git push origin main`                                              | 
-| 6     | Celebrate!                 | `AFK`                                              | 
+ Pull requests are best for larger projects where you want to control or at least review any changes. This does require the project's owners to spend time reviewing any pull requests. 
+ Smaller projects where all the developers trust each other might be better suited to allowing multiple people direct write access.
 
 :::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-:::::::::::::::::::::::::::::::::::::::: keypoints
+:::::::::::::::::::::::::::::::::::::::  challenge
 
-- Conflicts occur when two or more people change the same lines of the same file.
-- The version control system does not allow people to overwrite each other's changes blindly, but highlights conflicts so that they can be resolved.
+## Making additional changes to a Pull Request
+* Create another pull request using the same method as above.
+* After submitting the pull request, you decide to make another change either because you found a mistake or the upstream repository owner asked you to fix something.
+* Make this change to your fork and push them to github.
+* What happens to the pull request?
+
+:::::::::::::::  solution
+
+## Solution
+The pull request should automatically update with any additional changes you make.
+
+:::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
+:::::::::::::::::::::::::::::::::::::::  callout
 
+## Pull Requests in Big Projects
+In many large projects all work will be done via pull requests and merging changes back into the main repository will involve a large scale code review process. There may also be autoamted checks involved to stop code which doesn't pass tests (or doesn't have tests) from being merged into a production system.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::: keypoints
+
+* Conflicts occur when two or more people change the same lines of the same file.
+* The version control system does not allow people to overwrite each other's changes blindly, but highlights conflicts so that they can be resolved.
+* Giving many people write access to the same repository can result in a lot of conflicts if they all change the same file(s).
+* Pull requests offer a controlled way to share your changes and let the project owner review them.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::

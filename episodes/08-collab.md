@@ -48,21 +48,18 @@ or check for email notification. Once there she can accept access to the Owner's
 Next, the Collaborator needs to download a copy of the Owner's repository to her
 machine. This is called "cloning a repo".
 
-The Collaborator doesn't want to overwrite her own version of `planets.git`, so
-needs to clone the Owner's repository to a different location than her own
-repository with the same name.
+We'll be using a repository listing the locations of people's favourite pubs, restaurants, cafes and just general favourite places to go. You can find this repository at [https://github.com/NOC-OI/favourite-places](https://github.com/NOC-OI/favourite-places)
 
-To clone the Owner's repo into her `Desktop` folder, the Collaborator enters:
+To clone the Owner's repo into
+her `Desktop` folder, the Collaborator enters:
 
 ```bash
-$ git clone git@github.com:vlad/planets.git ~/Desktop/vlad-planets
+$ git clone git@github.com:NOC-OI/favourite-places.git ~/Desktop/favourite-places
 ```
 
-Replace 'vlad' with the Owner's username.
-
 If you choose to clone without the clone path
-(`~/Desktop/vlad-planets`) specified at the end,
-you will clone inside your own planets folder!
+(`~/Desktop/favourite-places`) specified at the end,
+you will clone inside your own favourite-places folder!
 Make sure to navigate to the `Desktop` folder first.
 
 ![](fig/github-collaboration.svg){alt='After Creating Clone of Repository'}
@@ -71,23 +68,24 @@ The Collaborator can now make a change in her clone of the Owner's repository,
 exactly the same way as we've been doing before:
 
 ```bash
-$ cd ~/Desktop/vlad-planets
-$ nano pluto.txt
-$ cat pluto.txt
+$ cd ~/Desktop/favourite-places
+$ nano places.csv
+$ cat places.csv
 ```
 
 ```output
-It is so a planet!
+name,symbol,creator,comments,lon,lat
+Express Cafe,cafe,Vlad,black pudding,-4.081978,52.414381
 ```
 
 ```bash
 $ git add pluto.txt
-$ git commit -m "Add notes about Pluto"
+$ git commit -m "Adding Express Cafe"
 ```
 
 ```output
  1 file changed, 1 insertion(+)
- create mode 100644 pluto.txt
+ create mode 100644 places.csv
 ```
 
 Then push the change to the *Owner's repository* on GitHub:
@@ -103,7 +101,7 @@ Delta compression using up to 4 threads.
 Compressing objects: 100% (2/2), done.
 Writing objects: 100% (3/3), 306 bytes, done.
 Total 3 (delta 0), reused 0 (delta 0)
-To https://github.com/vlad/planets.git
+To git@github.com:NOC-OI/favourite-places.git
    9272da5..29aba7c  main -> main
 ```
 
@@ -163,14 +161,14 @@ remote: Counting objects: 100% (4/4), done.
 remote: Compressing objects: 100% (2/2), done.
 remote: Total 3 (delta 0), reused 3 (delta 0), pack-reused 0
 Unpacking objects: 100% (3/3), done.
-From https://github.com/vlad/planets
+From git@github.com:NOC-OI/favourite-places
  * branch            main     -> FETCH_HEAD
    9272da5..29aba7c  main     -> origin/main
 Updating 9272da5..29aba7c
 Fast-forward
- pluto.txt | 1 +
+ places.csv | 1 +
  1 file changed, 1 insertion(+)
- create mode 100644 pluto.txt
+ create mode 100644 places.csv
 ```
 
 Now the three repositories (Owner's local, Collaborator's local, and Owner's on
@@ -198,10 +196,13 @@ read and review.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
-## Switch Roles and Repeat
-
-Switch roles and repeat the whole process.
-
+## Group exercise
+1. Everyone in group should clone the repository git@github.com:NOC-OI/favourite-places.git (using SSH), or if you are unable to use SSH then clone [https://github.com/NOC-OI/favourite-places.git](https://github.com/NOC-OI/favourite-places.git).
+2. Find the longditude and latitude of your favourite pub, cafe, restaurant, etc. The website [https://www.latlong.net/](https://www.latlong.net/) or [https://www.gps-coordinates.net/](https://www.gps-coordinates.net/) can help you do this. 
+3. Add a new line to places.csv with the following fields seprated by commas: The name of the location, a symbol (bar, cafe, restaurant), your name, a comment about the location, the longitude (note this should be negative for the Western Hemisphere, including most of the UK) and latitude. 
+4. Add/Commit this change to your local repository.
+5. Push your changes to the upstream repository.
+6. Unless you are the first person to push to the repository, this will almost certainly result in a merge conflict error since multiple people have edited the same line. We'll deal with how to resolve this in the next section.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
