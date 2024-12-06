@@ -372,7 +372,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Setting Up Git</h1>
-        <p>Last updated on 2023-11-06 |
+        <p>Last updated on 2024-12-06 |
 
         <a href="https://github.com/swcarpentry/git-novice/edit/main/episodes/02-setup.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -419,14 +419,14 @@ project).</li>
 <code>git verb options</code>, where <code>verb</code> is what we
 actually want to do and <code>options</code> is additional optional
 information which may be needed for the <code>verb</code>. So here is
-how Dracula sets up his new laptop:</p>
+how Alfredo sets up his new laptop:</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">$</span> git config <span class="at">--global</span> user.name <span class="st">"Vlad Dracula"</span></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="ex">$</span> git config <span class="at">--global</span> user.email <span class="st">"vlad@tran.sylvan.ia"</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">$</span> git config <span class="at">--global</span> user.name <span class="st">"Alfredo Linguini"</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="ex">$</span> git config <span class="at">--global</span> user.email <span class="st">"a.linguini@ratatouille.fr"</span></span></code></pre>
 </div>
-<p>Please use your own name and email address instead of Dracula’s. This
+<p>Please use your own name and email address instead of Alfredo’s. This
 user name and email will be associated with your subsequent Git
 activity, which means that any changes pushed to <a href="https://github.com/" class="external-link">GitHub</a>, <a href="https://bitbucket.org/" class="external-link">BitBucket</a>, <a href="https://gitlab.com/" class="external-link">GitLab</a> or another Git host server after
 this lesson will include this information.</p>
@@ -442,9 +442,9 @@ instructions for keeping your email address private</a>.</p>
 <h3 class="callout-title">Keeping your email private</h3>
 <div class="callout-content">
 <p>If you elect to use a private email address with GitHub, then use
-that same email address for the <code>user.email</code> value,
-e.g. <code>username@users.noreply.github.com</code> replacing
-<code>username</code> with your GitHub one.</p>
+GitHub’s no-reply email address for the <code>user.email</code> value.
+It looks like <code>ID+username@users.noreply.github.com</code>. You can
+look up your own address in your GitHub <a href="https://github.com/settings/emails" class="external-link">email settings</a>.</p>
 </div>
 </div>
 </div>
@@ -455,9 +455,9 @@ e.g. <code>username@users.noreply.github.com</code> replacing
 <div id="line-endings" class="callout-inner">
 <h3 class="callout-title">Line Endings</h3>
 <div class="callout-content">
-<p>As with other keys, when you hit <kbd>Enter</kbd> or <kbd>↵</kbd> or
-on Macs, <kbd>Return</kbd> on your keyboard, your computer encodes this
-input as a character. Different operating systems use different
+<p>As with other keys, when you press <kbd>Enter</kbd> or <kbd>↵</kbd>
+or on Macs, <kbd>Return</kbd> on your keyboard, your computer encodes
+this input as a character. Different operating systems use different
 character(s) to represent the end of a line. (You may also hear these
 referred to as newlines or line breaks.) Because Git uses these
 characters to compare files, it may cause unexpected issues when editing
@@ -482,7 +482,7 @@ following settings are recommended:</p>
 </div>
 </div>
 </div>
-<p>Dracula also has to set his favorite text editor, following this
+<p>Alfredo also has to set his favorite text editor, following this
 table:</p>
 <table class="table"><colgroup><col width="27%"><col width="72%"></colgroup><thead><tr class="header"><th align="left">Editor</th>
 <th align="left">Configuration command</th>
@@ -527,15 +527,16 @@ want to change it.</p>
 <div class="callout-content">
 <p>Note that Vim is the default editor for many programs. If you haven’t
 used Vim before and wish to exit a session without saving your changes,
-press <kbd>Esc</kbd> then type <code>:q!</code> and hit <kbd>Enter</kbd>
-or <kbd>↵</kbd> or on Macs, <kbd>Return</kbd>. If you want to save your
-changes and quit, press <kbd>Esc</kbd> then type <code>:wq</code> and
-hit <kbd>Enter</kbd> or <kbd>↵</kbd> or on Macs, <kbd>Return</kbd>.</p>
+press <kbd>Esc</kbd> then type <code>:q!</code> and press
+<kbd>Enter</kbd> or <kbd>↵</kbd> or on Macs, <kbd>Return</kbd>. If you
+want to save your changes and quit, press <kbd>Esc</kbd> then type
+<code>:wq</code> and press <kbd>Enter</kbd> or <kbd>↵</kbd> or on Macs,
+<kbd>Return</kbd>.</p>
 </div>
 </div>
 </div>
 <p>Git (2.28+) allows configuration of the name of the branch created
-when you initialize any new repository. Dracula decides to use that
+when you initialize any new repository. Alfredo decides to use that
 feature to set it to <code>main</code> so it matches the cloud service
 he will eventually use.</p>
 <div class="codewrapper sourceCode" id="cb4">
@@ -722,8 +723,8 @@ per machine.</li>
   "url": "https://swcarpentry.github.io/git-novice/02-setup.html",
   "identifier": "https://swcarpentry.github.io/git-novice/02-setup.html",
   "dateCreated": "2014-12-04",
-  "dateModified": "2023-11-06",
-  "datePublished": "2024-12-03"
+  "dateModified": "2024-12-06",
+  "datePublished": "2024-12-06"
 }
 
   </script><script>
